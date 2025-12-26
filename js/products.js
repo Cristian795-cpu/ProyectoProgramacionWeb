@@ -36,7 +36,15 @@ function displayProducts(productsData) {
             <h5 class="card-title">${product.title}</h5>
             <h6> AAAAAAAAAAAAA</h6>
             <p class="card-text">${product.description}</p>
-            <a href="#" class="btn btn-primary">Agregar al carrito</a>
+
+            <button class= "btn btn-info btn-sm me-2">
+                <i class="fa-solid fa-eye me-1"></i>Detalles
+            </button>
+
+            <button class= "btn btn-primary btn-sm">
+                <i class="fa-solid fa-card-shopping me-1"></i>Agregar al carrito
+            </button>
+
           </div>
         </div>
         `;

@@ -38,11 +38,19 @@
            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a href="#">
+                        <a href="#" class="nav-link position-relative" data-bs-toggle="modal" data-bs-target="#cartModal">
                             <span class="material-symbols-outlined">
                                 shopping_cart_checkout
                             </span>
+
+                            <span class="d-none d-md-inline">Carrito</span>
+
+                            <span id="carritoBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none;">
+                                0
+                            </span>
                         </a>
+
+
                         
                     </li>
                     <li class="nav-item">
@@ -53,9 +61,8 @@
            
         </div>
         
-        
-
     </header class="PageHeader">
+
     <main>
         <aside class="col-lg-3 col-xl-2 d-none d-lg-block">
             <div class="filters-container card border-0 shadow-sm h-100">
@@ -158,16 +165,75 @@
 
             <div class="gridCard" id = "gridCard"></div>
 
-    
-
-            
-
-            
-            
-                
-
         </section>
     </main>
+
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="carritoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="carritoModalLabel">
+                        <span class="material-symbols-outlined me-2">shopping_cart</span>
+                        Carrito de compras
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div id="carritoContenido">
+                        <p class="text-muted text-center py-4">Tu carrito esta Vacio</p>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="d-flex justify-content-between w-100">
+                        <div>
+                            <h5>Total: <span id="carritoTotal">$0</span></h5>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="productoModal" tabindex="-1" aria-labelledby="productoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productoModalLabel">
+                        detalles del producto
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div id="carritoContenido">
+                        <p class="text-muted text-center py-4">Tu carrito esta Vacio</p>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="d-flex justify-content-between w-100">
+                        <div>
+                            <h5>Total: <span id="carritoTotal">$0</span></h5>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <footer></footer>
 
