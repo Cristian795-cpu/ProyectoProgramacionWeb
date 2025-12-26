@@ -101,12 +101,13 @@
 
                     <div class="categoria mb-4">
                         <h3 class="h6 fw-bold mb-2">Categorías</h3>
-                        <ul class="list-unstyled mb-0">
+                        <ul id = "category-list"></ul>
+                        <!-- <ul class="list-unstyled mb-0">
                             <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Blusas</a></li>
                             <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Vestidos</a></li>
                             <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Accesorios</a></li>
                             <li><a href="#" class="text-decoration-none text-dark">Pantalones</a></li>
-                        </ul>
+                        </ul> -->
                     </div>
                     <div class="talla mb-4">
                         <h3 class="h6 fw-bold mb-2">Tallas</h3>
@@ -164,11 +165,22 @@
             </div>
 
             <div class="gridCard" id = "gridCard"></div>
+            
+            <div class="d-flex justify-content-center my-4">
+                <button class="btn btn-outline-primary me-3" id="btn-prev" onclick="changePage(-1)">
+                    Anterior
+                </button>
+                <span class="align-self-center fw-bold" id="page-info">Página 1</span>
+                <button class="btn btn-outline-primary ms-3" id="btn-next" onclick="changePage(1)">
+                    Siguiente
+                </button>
+            </div>
+            
 
         </section>
     </main>
 
-    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="carritoModalLabel" aria-hidden="true">
+    <div class="modal fade" id="carritoModal" tabindex="-1" aria-labelledby="carritoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
 
@@ -214,8 +226,8 @@
                 </div>
 
                 <div class="modal-body">
-                    <div id="carritoContenido">
-                        <p class="text-muted text-center py-4">Tu carrito esta Vacio</p>
+                    <div id="productoModalContenido">
+                    
                     </div>
                 </div>
 
@@ -226,7 +238,7 @@
                         </div>
                         <div>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary">Comprar</button>
+                            <button type="button" class="btn btn-primary" id="agregarDesdeModal">Comprar</button>
                         </div>
                     </div>
                 </div>

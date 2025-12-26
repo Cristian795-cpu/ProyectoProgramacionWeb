@@ -13,13 +13,69 @@
  let productsData = [];
  let categoriesData = [];
 
-fetch('https://dummyjson.com/products?limit=0')
+ let currentPage = 1;
+const productsPerPage = 9;
+let totalProducts = 0;
+
+ let carrito = [];
+
+// fetch('https://dummyjson.com/products?limit=0')
+// .then(res => res.json())
+// .then(data => {
+//     productsData = data.products;
+//     console.log('productos cargados: ', productsData);
+//     displayProducts(productsData);  
+    
+// });
+
+function loadProducts(page) {
+  const skip = (page - 1) * productsPerPage;
+  fetch(`https://dummyjson.com/products?limit=${productsPerPage}&skip=${skip}`)
+    .then(res => res.json())
+    .then(data => {
+      productsData = data.products;
+      totalProducts = data.total;
+      console.log('productos cargados: ', productsData);
+
+      displayProducts(productsData);
+      updatePaginationButtons();
+    });
+}
+
+function changePage(direction) {
+    const totalPages = Math.ceil(totalProducts / productsPerPage);
+    const newPage = currentPage + direction;
+
+    // Validar que no nos salgamos de los límites
+    if (newPage >= 1 && newPage <= totalPages) {
+        currentPage = newPage;
+        loadProducts(currentPage);
+        // Opcional: Scrollear arriba al cambiar
+        window.scrollTo(0, 0); 
+    }
+}
+
+function updatePaginationButtons() {
+    const prevBtn = document.getElementById('btn-prev');
+    const nextBtn = document.getElementById('btn-next');
+    const pageInfo = document.getElementById('page-info');
+
+    if(pageInfo) pageInfo.innerText = `Página ${currentPage}`;
+    
+    // Deshabilitar "Anterior" si es la pág 1
+    if(prevBtn) prevBtn.disabled = (currentPage === 1);
+    
+    // Deshabilitar "Siguiente" si es la última pág
+    const totalPages = Math.ceil(totalProducts / productsPerPage);
+    if(nextBtn) nextBtn.disabled = (currentPage >= totalPages);
+}
+
+fetch('https://dummyjson.com/products/categories')
 .then(res => res.json())
 .then(data => {
-    productsData = data.products;
-    console.log('productos cargados: ', productsData);
-    displayProducts(productsData);  
-    
+    categoriesData = data.map(category => category.name);
+    console.log('categorias cargadas: ', categoriesData);
+    displayCategories(categoriesData);
 });
 
 function displayProducts(productsData) {
@@ -34,14 +90,13 @@ function displayProducts(productsData) {
           <img class="card-img-top" src="${product.thumbnail}" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">${product.title}</h5>
-            <h6> AAAAAAAAAAAAA</h6>
             <p class="card-text">${product.description}</p>
 
-            <button class= "btn btn-info btn-sm me-2">
+            <button class= "btn btn-info btn-sm me-2" onclick="verDetallesProducto(${product.id})">
                 <i class="fa-solid fa-eye me-1"></i>Detalles
             </button>
 
-            <button class= "btn btn-primary btn-sm">
+            <button class= "btn btn-primary btn-sm" onclick="agregarAlCarrito(${product.id})">
                 <i class="fa-solid fa-card-shopping me-1"></i>Agregar al carrito
             </button>
 
@@ -53,6 +108,110 @@ function displayProducts(productsData) {
     }
 
     );
+}
+
+function displayCategories(categoriesData) {
+    // Apuntamos al UL directamente
+    const categoriesContainer = document.getElementById('category-list');
+    categoriesContainer.innerHTML = ''; 
+
+    categoriesData.forEach(category => {
+        categoriesContainer.innerHTML += `
+        <li class="nav-item">
+          <a class="nav-link" href="#">${category}</a>
+        </li>`;
+    });
+}
+
+function verDetallesProducto(productId){
+    const product= productsData.find(p => p.id === productId);
+    if(!product) 
+        return;
+    
+    const modalContent = document.getElementById('productoModalContenido');
+    modalContent.innerHTML = `
+        <div class="row">
+            <div class="col-md-6">
+                <img src="${product.thumbnail}" class="img-fluid rounded" alt="${product.title}">
+            </div>
+            <div class="col-md-6">
+                <h3>${product.title}</h3>
+                <p><strong>Categoría:</strong> ${product.category}</p>
+                <p><strong>Precio:</strong> $${product.price}</p>
+                <p><strong>Calificación:</strong> ${product.rating} ⭐</p>
+                <p><strong>Stock:</strong> ${product.stock} unidades</p>
+                <hr>
+                <h5>Descripción:</h5>
+                <p>${product.description}</p>
+            </div>
+        </div>
+    `;
+    
+    const agregarBtn = document.getElementById('agregarDesdeModal');
+    agregarBtn.onclick = function() {
+        agregarAlCarrito(productId);
+        const modal = bootstrap.Modal.getInstance(document.getElementById('productoModal'));
+        modal.hide();
+    };
+    
+    const modal = new bootstrap.Modal(document.getElementById('productoModal'));
+    modal.show();
+}
+
+
+function agregarAlCarrito(productId) {
+    const product = productsData.find(p => p.id === productId);
+    if (!product) return;
+    
+
+    const existingItem = carrito.find(item => item.id === productId);
+    
+    if (existingItem) {
+        existingItem.cantidad += 1;
+    } else {
+        carrito.push({
+            id: product.id,
+            title: product.title,
+            price: product.price,
+            thumbnail: product.thumbnail,
+            cantidad: 1
+        });
+    }
+    
+    actualizarContadorCarrito();
+    
+    Swal.fire({
+        icon: 'success',
+        title: '¡Agregado!',
+        text: `${product.title} se agregó al carrito`,
+        showConfirmButton: false,
+        timer: 1500
+    });
+    
+    actualizarCarritoModal();
+
+    const modal = new bootstrap.Modal(document.getElementById('carritoModal'));
+    modal.show();
+}
+
+function actualizarContadorCarrito() {
+    const carritoBadge = document.getElementById('carritoBadge');
+    const totalItems = carrito.reduce((total, item) => total + item.cantidad, 0);
+    
+    if (totalItems > 0) {
+        carritoBadge.textContent = totalItems;
+        carritoBadge.style.display = 'block';
+    } else {
+        carritoBadge.style.display = 'none';
+    }
+}
+
+function actualizarCarritoModal(){
+    const carritoContenido= document.getElementById("carritoContenido");
+    const carritoTotal= document.getElementById("carritoTotal");
+    
+    if(carrito.length === 0){
+    }
 }
 
 // Función de filtro
@@ -90,7 +249,7 @@ function filterProducts() {
     console.log(`Encontrados ${filteredProducts.length} productos`);
 }
 
-
+loadProducts(currentPage);
 
 {/* <div class="Card">
                     
