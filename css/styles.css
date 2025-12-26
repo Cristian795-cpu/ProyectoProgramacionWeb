@@ -153,3 +153,23 @@ aside {
     display: flex;
     gap: 15px;
 }
+
+#category-list li {
+    cursor: pointer;
+    padding: 8px 0;
+    border-radius: 5px;
+    list-style: none;
+    transition: background-color 0.3s, color 0.3s, font-weight 0.3s, text-decoration 0.3s;
+}
+
+#category-list li a {
+    color: #333;
+    text-decoration: none;
+}
+
+#category-list li:hover {
+    background-color: #a8b6c0;
+    color: rgb(85, 0, 255);
+    font-weight: bold;
+    text-decoration: underline;
+}

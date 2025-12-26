@@ -12,11 +12,13 @@
 
  let productsData = [];
  let categoriesData = [];
+ let tallaData = [];
+
 
  let currentPage = 1;
 const productsPerPage = 9;
 let totalProducts = 0;
-
+let currentSearchTerm = '';
  let carrito = [];
 
 // fetch('https://dummyjson.com/products?limit=0')
@@ -30,12 +32,21 @@ let totalProducts = 0;
 
 function loadProducts(page) {
   const skip = (page - 1) * productsPerPage;
-  fetch(`https://dummyjson.com/products?limit=${productsPerPage}&skip=${skip}`)
+  let url = '';
+
+  if (currentSearchTerm) {
+
+    url = `https://dummyjson.com/products/search?q=${currentSearchTerm}&limit=${productsPerPage}&skip=${skip}`;
+  } else {
+    
+    url = `https://dummyjson.com/products?limit=${productsPerPage}&skip=${skip}`;
+  }
+  fetch(url)
     .then(res => res.json())
     .then(data => {
       productsData = data.products;
       totalProducts = data.total;
-      console.log('productos cargados: ', productsData);
+    //   console.log('productos cargados: ', productsData);
 
       displayProducts(productsData);
       updatePaginationButtons();
@@ -206,48 +217,168 @@ function actualizarContadorCarrito() {
     }
 }
 
-function actualizarCarritoModal(){
-    const carritoContenido= document.getElementById("carritoContenido");
-    const carritoTotal= document.getElementById("carritoTotal");
+function actualizarCarritoModal() {
+    const carritoContenido = document.getElementById('carritoContenido');
+    const carritoTotal = document.getElementById('carritoTotal');
     
-    if(carrito.length === 0){
-    }
-}
-
-// Función de filtro
-function filterProducts() {
-    // 1. Obtener el valor del input
-    const searchInput = document.getElementById('searchInput');
-    const searchTerm = searchInput.value.toLowerCase().trim();
-    
-    console.log('Buscando:', searchTerm);
-    
-    // 2. Si no hay término de búsqueda, mostrar todos
-    if (!searchTerm) {
-        displayProducts(productsData);
+    if (carrito.length === 0) {
+        carritoContenido.innerHTML = '<p class="text-muted text-center py-4">Tu carrito está vacío</p>';
+        carritoTotal.textContent = '$0';
         return;
     }
     
-    // 3. Filtrar los productos
-    const filteredProducts = productsData.filter(product => {
-        // Buscar en título
-        if (product.title.toLowerCase().includes(searchTerm)) return true;
+    let contenidoHTML = '';
+    let total = 0;
+    
+    carrito.forEach(item => {
+        const subtotal = item.price * item.cantidad;
+        total += subtotal;
         
-        // Buscar en descripción
-        if (product.description.toLowerCase().includes(searchTerm)) return true;
-        
-        // Buscar en categoría
-        if (product.category.toLowerCase().includes(searchTerm)) return true;
-        
-        return false;
+        contenidoHTML += `
+        <div class="card mb-2">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-2">
+                        <img src="${item.thumbnail}" alt="${item.title}" class="img-fluid rounded">
+                    </div>
+                    <div class="col-6">
+                        <h6 class="mb-1">${item.title}</h6>
+                        <p class="mb-0 text-muted">Precio unitario: $${item.price}</p>
+                    </div>
+                    <div class="col-2">
+                        <div class="input-group input-group-sm">
+                            <button class="btn btn-outline-secondary" onclick="cambiarCantidad(${item.id}, -1)">-</button>
+                            <input type="text" class="form-control text-center" value="${item.cantidad}" readonly>
+                            <button class="btn btn-outline-secondary" onclick="cambiarCantidad(${item.id}, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="col-2 text-end">
+                        <p class="mb-0 fw-bold">$${subtotal.toFixed(2)}</p>
+                        <button class="btn btn-link text-danger p-0" onclick="eliminarDelCarrito(${item.id})">
+                            <small>Eliminar</small>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
     });
     
-    // 4. Mostrar resultados
-    displayProducts(filteredProducts);
-    
-    // 5. Opcional: mostrar mensaje
-    console.log(`Encontrados ${filteredProducts.length} productos`);
+    carritoContenido.innerHTML = contenidoHTML;
+    carritoTotal.textContent = `$${total.toFixed(2)}`;
 }
+
+function cambiarCantidad(productId, cambio){
+    const item=carrito.find(item => item.id === productId);
+    if(!item) return;
+    item.cantidad += cambio;
+
+    if(item.cantidad <= 0){
+        eliminarDelCarrito(productId);
+    }
+    else{
+        actualizarCarritoModal();
+        actualizarContadorCarrito();
+    }
+}
+
+function eliminarDelCarrito(productId){
+    carrito=carrito.filter(item => item.id !== productId);
+    actualizarCarritoModal();
+    actualizarContadorCarrito();
+}
+
+ function buscarPorTalla(tallaData) {
+    
+ }
+
+
+
+// Función de filtro
+// function filterProducts() {
+//     // 1. Obtener el valor del input
+//     const searchInput = document.getElementById('searchInput');
+//     const searchTerm = searchInput.value.toLowerCase().trim();
+    
+//     console.log('Buscando:', searchTerm);
+    
+//     // 2. Si no hay término de búsqueda, mostrar todos
+//     if (!searchTerm) {
+//         displayProducts(productsData);
+//         return;
+//     }
+    
+//     // 3. Filtrar los productos
+//     const filteredProducts = productsData.filter(product => {
+//         // Buscar en título
+//         if (product.title.toLowerCase().includes(searchTerm)) return true;
+        
+//         // Buscar en descripción
+//         if (product.description.toLowerCase().includes(searchTerm)) return true;
+        
+//         // Buscar en categoría
+//         if (product.category.toLowerCase().includes(searchTerm)) return true;
+        
+//         return false;
+//     });
+    
+//     // 4. Mostrar resultados
+//     displayProducts(filteredProducts);
+    
+//     // 5. Opcional: mostrar mensaje
+//     console.log(`Encontrados ${filteredProducts.length} productos`);
+// }
+
+// function filterProducts() {
+//     // 1. Obtener el valor del input
+//     const searchInput = document.getElementById('searchInput');
+//     const searchTerm = searchInput.value.toLowerCase().trim();
+    
+//     // 2. Si no hay término de búsqueda, volver a la paginación normal
+//     if (!searchTerm) {
+//         currentPage = 1; // Volver a la primera página
+//         loadProducts(currentPage);
+//         return;
+//     }
+    
+//     // 3. Buscar en TODA la API (sin límites de paginación)
+//     fetch(`https://dummyjson.com/products/search?q=${searchTerm}`)
+//         .then(res => res.json())
+//         .then(data => {
+//             productsData = data.products;
+//             totalProducts = data.total;
+            
+//             console.log(`Encontrados ${productsData.length} productos para "${searchTerm}"`);
+            
+//             // Mostrar todos los resultados (sin paginación temporalmente)
+//             displayProducts(productsData);
+            
+//             // Ocultar paginación durante la búsqueda
+//             const paginationContainer = document.getElementById('pagination-container');
+//             if (paginationContainer) {
+//                 paginationContainer.style.display = 'none';
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Error en la búsqueda:', error);
+//         });
+// }
+
+function filterProducts() {
+    const searchInput = document.getElementById('searchInput');
+    const term = searchInput.value.toLowerCase().trim();
+
+    currentSearchTerm = term;
+    currentPage = 1; // Reiniciar a la primera página
+    
+    loadProducts(currentPage);
+
+    console.log('Buscando:', currentSearchTerm);
+}
+
+
+
+
 
 loadProducts(currentPage);
 
