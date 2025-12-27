@@ -19,6 +19,7 @@
 const productsPerPage = 9;
 let totalProducts = 0;
 let currentSearchTerm = '';
+let currentCategory = '';
  let carrito = [];
 
 // fetch('https://dummyjson.com/products?limit=0')
@@ -37,6 +38,9 @@ function loadProducts(page) {
   if (currentSearchTerm) {
 
     url = `https://dummyjson.com/products/search?q=${currentSearchTerm}&limit=${productsPerPage}&skip=${skip}`;
+  } else if (currentCategory) {
+
+    url = `https://dummyjson.com/products/category/${currentCategory}?limit=${productsPerPage}&skip=${skip}`;
   } else {
     
     url = `https://dummyjson.com/products?limit=${productsPerPage}&skip=${skip}`;
@@ -129,7 +133,7 @@ function displayCategories(categoriesData) {
     categoriesData.forEach(category => {
         categoriesContainer.innerHTML += `
         <li class="nav-item">
-          <a class="nav-link" href="#">${category}</a>
+          <a class="nav-link" href="#" onclick="filterByCategory('${category}')">${category}</a>
         </li>`;
     });
 }
@@ -376,7 +380,17 @@ function filterProducts() {
     console.log('Buscando:', currentSearchTerm);
 }
 
-
+function filterByCategory(category) {
+    console.log("Filtrando por categoría:", category);
+    
+    // 1. Establecer el estado
+    currentCategory = category;
+    currentSearchTerm = ''; // Limpiamos la búsqueda para evitar conflictos
+    currentPage = 1; // Siempre volver a la página 1 al cambiar de filtro
+    
+    // 2. Cargar los productos con el nuevo estado
+    loadProducts(currentPage);
+}
 
 
 
