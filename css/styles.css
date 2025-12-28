@@ -173,3 +173,34 @@ aside {
     font-weight: bold;
     text-decoration: underline;
 }
+
+
+#category-list .nav-link {
+    text-transform: capitalize; 
+}
+
+
+#category-list-mobile li {
+    cursor: pointer;
+    padding: 8px 0;
+    border-radius: 5px;
+    list-style: none;
+    transition: background-color 0.3s, color 0.3s, font-weight 0.3s, text-decoration 0.3s;
+}
+
+#category-list-mobile li a {
+    color: #333;
+    text-decoration: none;
+}
+
+#category-list-mobile li:hover {
+    background-color: #a8b6c0;
+    color: rgb(85, 0, 255);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+
+#category-list-mobile .nav-link {
+    text-transform: capitalize; 
+}
