@@ -1,4 +1,4 @@
 # Proyecto-Programaci-n-Web
 
-## Rama colaborativa en la que se uso  la extension liveshare de visual studio
+## A partir de aqui se empezo a usar gitflow
 ...
