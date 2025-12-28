@@ -8,7 +8,7 @@ function applyFilters() {
     const searchInput = document.getElementById('searchInput');
     currentSearchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
-    filteredProducts = allProducts.filter(product => {
+    window.filteredProducts = window.allProducts.filter(product => {
 
         const matchCategory = currentCategory === '' || product.category === currentCategory;
 
@@ -28,14 +28,14 @@ function renderGrid() {
 
     const start = (currentPage - 1) * productsPerPage;
     const end = start + productsPerPage;
-    const productsToShow = filteredProducts.slice(start, end);
+    const productsToShow = window.filteredProducts.slice(start, end);
 
     displayProducts(productsToShow);
     updatePaginationButtons();
 }
 
 function changePage(direction) {
-    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+    const totalPages = Math.ceil(window.filteredProducts.length / productsPerPage);
     const newPage = currentPage + direction;
 
     if (newPage >= 1 && newPage <= totalPages) {
@@ -56,7 +56,8 @@ function updatePaginationButtons() {
     if(prevBtn) prevBtn.disabled = (currentPage === 1);
     
     // Deshabilitar "Siguiente" si es la última pág
-    const totalPages = Math.ceil(filteredProducts / productsPerPage);
+    // const totalPages = Math.ceil(filteredProducts / productsPerPage);
+    const totalPages = Math.ceil(window.filteredProducts.length / productsPerPage);
     if(nextBtn) nextBtn.disabled = (currentPage >= totalPages);
 }
 
@@ -85,13 +86,13 @@ function filterByPrice() {
     currentPriceRange = { min, max };
     
     // Filtrar productos
-    filteredProducts = allProducts.filter(product => 
+    window.filteredProducts = window.allProducts.filter(product => 
         product.price >= min && product.price <= max
     );
     
     // Si hay otros filtros activos, combinarlos
     if (currentCategory || currentSearchTerm) {
-        filteredProducts = filteredProducts.filter(product => {
+        window.filteredProducts = window.filteredProducts.filter(product => {
             const matchCategory = currentCategory === '' || product.category === currentCategory;
             const matchSearch = currentSearchTerm === '' || 
                               product.title.toLowerCase().includes(currentSearchTerm) ||
@@ -105,3 +106,12 @@ function filterByPrice() {
     
 }
        
+// function filterProductsMobile() {
+//     const searchInputMobile = document.getElementById('searchInputMobile');
+//     if(searchInputMobile) {
+//         // Sincronizar con escritorio
+//         const desktop = document.getElementById('searchInput');
+//         if(desktop) desktop.value = searchInputMobile.value;
+//     }
+//     applyFilters();
+// }
