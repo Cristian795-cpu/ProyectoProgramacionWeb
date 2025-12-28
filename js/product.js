@@ -1,4 +1,5 @@
 let favoritos=JSON.parse(localStorage.getItem("favoritos")) || [];
+// let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 function displayProducts(productsToRender) {
     const productsContainer = document.getElementById('gridCard');
@@ -36,9 +37,7 @@ function displayProducts(productsToRender) {
         `;
         productsContainer.innerHTML += productCard;
         
-    }
-
-    );
+    });
 }
 
 // function displayCategories(categoriesData) {
@@ -86,10 +85,27 @@ function displayCategories(categoriesData) {
     });
 }
 
-function verDetallesProducto(productId){
-    const product= allProducts.find(p => p.id === productId);
-    if(!product) 
+window.verDetallesProducto= function(productId){
+    if (!window.allProducts || window.allProducts.length === 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Cargando productos...',
+            text: 'Por favor, espera a que se carguen los productos.',
+            showConfirmButton: false,
+            timer: 2000
+        });
         return;
+    }
+
+    const product= window.allProducts.find(p => p.id === productId);
+    if(!product) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Producto no encontrado',
+            text: 'El producto solicitado no existe.',
+        });
+        return;
+    }
     
     const modalContent = document.getElementById('productoModalContenido');
     modalContent.innerHTML = `
@@ -121,7 +137,7 @@ function verDetallesProducto(productId){
     modal.show();
 }
 
-function guardarFavoritoLocalStorage(productId) {
+window.guardarFavoritoLocalStorage= function(productId) {
     let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
     const productIndex = favoritos.indexOf(productId);
     const iconoElement = document.getElementById(`favorito-${productId}`);
@@ -169,3 +185,6 @@ function guardarFavoritoLocalStorage(productId) {
     
     console.log("Favoritos actualizados: ", favoritos);
 }
+
+window.displayProducts = displayProducts;
+window.displayCategories = displayCategories;

@@ -1,5 +1,6 @@
-let allProducts = [];
-let filteredProducts = [];
+window.allProducts = [];
+window.filteredProducts = [];
+// let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -11,11 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('https://dummyjson.com/products?limit=0')
     .then(res => res.json())
     .then(data => {
-        allProducts = data.products;
+        window.allProducts = data.products;
         
         // Al inicio, los filtrados son TODOS
-        filteredProducts = allProducts; 
-        console.log('Productos cargados:', allProducts.length);
+        window.filteredProducts = window.allProducts; 
+        console.log('Productos cargados:', window.allProducts.length);
 
         // Llamamos a renderGrid (función de filters.js)
         renderGrid();
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(res => res.json())
     .then(data => {
         displayCategories(data);
+        console.log('Categorías cargadas:', data);
     })
     .catch(error => console.error('Error al cargar las categorías:', error));
 
@@ -40,3 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // searchInput.addEventListener('input', () => applyFilters()); 
     }
 });
+
+// window.allProducts = window.allProducts;
+// window.filteredProducts = window.filteredProducts;
+// window.currentPage = currentPage;
+// window.productsPerpage = productsPerPage;
