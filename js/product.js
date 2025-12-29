@@ -149,7 +149,7 @@ window.guardarFavoritoLocalStorage= function(productId) {
         // Cambiar icono a rojo
         if (iconoElement) {
             iconoElement.src = "./graphic resources/icon/favorite_filled_red.svg";
-            iconoElement.style.transform = "scale(2.5)";
+            iconoElement.style.transform = "scale(1.5)";
             setTimeout(() => {
                 iconoElement.style.transform = "scale(1)";
             }, 1000);
@@ -169,7 +169,7 @@ window.guardarFavoritoLocalStorage= function(productId) {
         // Cambiar icono a gris
         if (iconoElement) {
             iconoElement.src = "./graphic resources/icon/favorite_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
-            iconoElement.style.transform = "scale(2.5)";
+            iconoElement.style.transform = "scale(1.5)";
             setTimeout(() => {
                 iconoElement.style.transform = "scale(1)";
             }, 1000);
