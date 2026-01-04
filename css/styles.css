@@ -102,7 +102,9 @@ header {
 }
 
 .card {
+    margin: 0 auto;
     width: 100%;
+    max-width: 18rem;
     min-height: 380px;
     background-color: white;
     border-radius: 12px;
@@ -543,4 +545,25 @@ aside {
 
 .card .btn-info:active {
     transform: translateY(0);
+}
+
+.gridCard{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 20px;
+
+}
+
+.gridCard .card{
+    width: 100%;
+    min-height: 380px;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(34, 42, 45, 0.1);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s ease;
+    border: 1px solid rgba(169, 149, 150, 0.2);
 }

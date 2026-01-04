@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap 5.3.2 CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!--CSS -->
     <!-- <link rel="stylesheet" href="inicioSesionStyle.css"> -->
     <link rel="stylesheet" href="/css/styles.css">
-
-    <!-- Bootstrap 5.3.2 CSS-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!--Google Material Icons-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
@@ -54,7 +54,15 @@
                         
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Otro</a>
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#iaChatModal">
+                            <img src="./graphic resources/icon/emoji_language_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" 
+                            alt="Asistente IA" 
+                            width="40px" 
+                            height="40px" 
+                            padding-left="10px"
+                            cursor="pointer"
+                            title="Asistente de Moda IA">
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -63,138 +71,138 @@
         
     </header class="PageHeader">
 
-    <main>
-        <aside class="col-lg-3 col-xl-2 d-none d-lg-block">
-            <div class="filters-container card border-0 shadow-sm h-100">
-                <div class="card-body">
-                    <h2 class="h5 mb-3 d-flex align-items-center">
-                        <span class="material-icons me-2">filter_alt</span>
-                        Filtros
-                    </h2>
-                        
-                    <!-- <div class="search-box mb-4">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Buscar productos...">
-                            <button class="btn btn-outline-primary" type="button">
+    <main class="container-fluid">
+            <aside class="col-lg-3 col-xl-2 d-none d-lg-block">
+                <div class="filters-container card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h2 class="h5 mb-3 d-flex align-items-center">
+                            <span class="material-icons me-2">filter_alt</span>
+                            Filtros
+                        </h2>
+                            
+                        <!-- <div class="search-box mb-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Buscar productos...">
+                                <button class="btn btn-outline-primary" type="button">
+                                    <span class="material-icons">search</span>
+                                </button>
+                            </div>
+                        </div> -->
+
+                        <div class="search-box mb-4">
+                            <div class="input-group">
+                                <!-- Agrega id y onkeypress -->
+                                <input type="text" 
+                                    class="form-control" 
+                                    id="searchInput"
+                                    placeholder="Buscar productos..."
+                                    onkeypress="if(event.key === 'Enter') applyFilters()"
+                                    >                            
+                                
+
+                                <button class="btn btn-outline-secondary" 
+                                        type="button"
+                                        onclick="applyFilters">
                                 <span class="material-icons">search</span>
-                            </button>
-                        </div>
-                    </div> -->
+                                </button>
 
-                    <div class="search-box mb-4">
-                        <div class="input-group">
-                            <!-- Agrega id y onkeypress -->
-                            <input type="text" 
-                                class="form-control" 
-                                id="searchInput"
-                                placeholder="Buscar productos..."
-                                onkeypress="if(event.key === 'Enter') applyFilters()"
-                                >                            
-                            
-
-                            <button class="btn btn-outline-secondary" 
-                                    type="button"
-                                    onclick="applyFilters">
-                            <span class="material-icons">search</span>
-                            </button>
-
-                        </div>
-                    </div>
-
-                    <div class="categoria mb-4">
-                        <h3 class="h6 fw-bold mb-2">Categorías</h3>
-                        <ul id = "category-list"></ul>
-                        <!-- <ul class="list-unstyled mb-0">
-                            <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Blusas</a></li>
-                            <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Vestidos</a></li>
-                            <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Accesorios</a></li>
-                            <li><a href="#" class="text-decoration-none text-dark">Pantalones</a></li>
-                        </ul> -->
-                    </div>
-                    <div class="talla mb-4">
-                        <h3 class="h6 fw-bold mb-2">Tallas</h3>
-                        <div class="d-flex flex-wrap gap-1">
-                            <a href="#" class="btn btn-sm btn-outline-secondary">XS</a>
-                            <a href="#" class="btn btn-sm btn-outline-secondary">S</a>
-                            <a href="#" class="btn btn-sm btn-outline-secondary">M</a>
-                            <a href="#" class="btn btn-sm btn-outline-secondary">L</a>
-                            <a href="#" class="btn btn-sm btn-outline-secondary">XL</a>
-                        </div>
-                    </div>
-
-                    <div class="color mb-4">
-                        <h3 class="h6 fw-bold mb-2">Colores</h3>
-                        <ul class="list-unstyled mb-0">
-                            <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Rojo</a></li>
-                            <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Azul</a></li>
-                            <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Verde</a></li>
-                            <li><a href="#" class="text-decoration-none text-dark">Negro</a></li>
-                        </ul>
-                    </div>
-
-                     <div class="rango-precio mb-4">
-                        <h3 class="h6 fw-bold mb-2">Rango de Precio</h3>
-                        
-                        <div class="row g-2">
-                            <div class="col">
-                                <input type="number" 
-                                    class="form-control form-control-sm" 
-                                    placeholder="$ Mín"
-                                    id="minPrice"
-                                    min="0"
-                                    step="0.01"
-                                    onkeypress="if(event.key === 'Enter') filterByPrice()">
                             </div>
-                            
-                            <div class="col">
-                                <input type="number" 
-                                    class="form-control form-control-sm" 
-                                    placeholder="$ Máx"
-                                    id="maxPrice"
-                                    min="0"
-                                    step="0.01"
-                                    onkeypress="if(event.key === 'Enter') filterByPrice()">
-                            </div>
-                     </div>
+                        </div>
 
-                    <div class="ocasion">
-                        <h3 class="h6 fw-bold mb-2">Ocasión</h3>
-                        <ul class="list-unstyled mb-0">
-                            <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Casual</a></li>
-                            <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Formal</a></li>
-                            <li><a href="#" class="text-decoration-none text-dark">Trabajo</a></li>
-                        </ul>
+                        <div class="categoria mb-4">
+                            <h3 class="h6 fw-bold mb-2">Categorías</h3>
+                            <ul id = "category-list"></ul>
+                            <!-- <ul class="list-unstyled mb-0">
+                                <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Blusas</a></li>
+                                <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Vestidos</a></li>
+                                <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Accesorios</a></li>
+                                <li><a href="#" class="text-decoration-none text-dark">Pantalones</a></li>
+                            </ul> -->
+                        </div>
+                        <div class="talla mb-4">
+                            <h3 class="h6 fw-bold mb-2">Tallas</h3>
+                            <div class="d-flex flex-wrap gap-1">
+                                <a href="#" class="btn btn-sm btn-outline-secondary">XS</a>
+                                <a href="#" class="btn btn-sm btn-outline-secondary">S</a>
+                                <a href="#" class="btn btn-sm btn-outline-secondary">M</a>
+                                <a href="#" class="btn btn-sm btn-outline-secondary">L</a>
+                                <a href="#" class="btn btn-sm btn-outline-secondary">XL</a>
+                            </div>
+                        </div>
+
+                        <div class="color mb-4">
+                            <h3 class="h6 fw-bold mb-2">Colores</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Rojo</a></li>
+                                <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Azul</a></li>
+                                <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Verde</a></li>
+                                <li><a href="#" class="text-decoration-none text-dark">Negro</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="rango-precio mb-4">
+                            <h3 class="h6 fw-bold mb-2">Rango de Precio</h3>
+                            
+                            <div class="row g-2">
+                                <div class="col">
+                                    <input type="number" 
+                                        class="form-control form-control-sm" 
+                                        placeholder="$ Mín"
+                                        id="minPrice"
+                                        min="0"
+                                        step="0.01"
+                                        onkeypress="if(event.key === 'Enter') filterByPrice()">
+                                </div>
+                                
+                                <div class="col">
+                                    <input type="number" 
+                                        class="form-control form-control-sm" 
+                                        placeholder="$ Máx"
+                                        id="maxPrice"
+                                        min="0"
+                                        step="0.01"
+                                        onkeypress="if(event.key === 'Enter') filterByPrice()">
+                                </div>
+                        </div>
+
+                        <div class="ocasion">
+                            <h3 class="h6 fw-bold mb-2">Ocasión</h3>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Casual</a></li>
+                                <li class="mb-1"><a href="#" class="text-decoration-none text-dark">Formal</a></li>
+                                <li><a href="#" class="text-decoration-none text-dark">Trabajo</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </aside>
+            </aside>
 
-        <section class="login-container">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="h4 mb-0">Productos encontrados</h2>
-                    
-                <div class="d-block d-lg-none">
-                    <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#filtersOffcanvas">
-                        <span class="material-icons me-1">filter_alt</span>
-                        Filtros
+            <section class="login-container">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="h4 mb-0">Productos encontrados</h2>
+                        
+                    <div class="d-block d-lg-none">
+                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#filtersOffcanvas">
+                            <span class="material-icons me-1">filter_alt</span>
+                            Filtros
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gridCard" id = "gridCard"></div>
+                
+                <div class="d-flex justify-content-center my-4">
+                    <button class="btn btn-outline-primary me-3" id="btn-prev" onclick="changePage(-1)">
+                        Anterior
+                    </button>
+                    <span class="align-self-center fw-bold" id="page-info">Página 1</span>
+                    <button class="btn btn-outline-primary ms-3" id="btn-next" onclick="changePage(1)">
+                        Siguiente
                     </button>
                 </div>
-            </div>
+                
 
-            <div class="gridCard" id = "gridCard"></div>
-            
-            <div class="d-flex justify-content-center my-4">
-                <button class="btn btn-outline-primary me-3" id="btn-prev" onclick="changePage(-1)">
-                    Anterior
-                </button>
-                <span class="align-self-center fw-bold" id="page-info">Página 1</span>
-                <button class="btn btn-outline-primary ms-3" id="btn-next" onclick="changePage(1)">
-                    Siguiente
-                </button>
-            </div>
-            
-
-        </section>
+            </section>
     </main>
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="filtersOffcanvas">
@@ -343,6 +351,109 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="iaChatModal" tabindex="-1" aria-labelledby="iaChatModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: var(--primary-dark); color: var(--neutral-light);">
+                    <h5 class="modal-title" id="iaChatModalLabel">
+                        <img src="./graphic resources/icon/emoji_language_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" 
+                             alt="IA" 
+                             width="30" 
+                             height="30" 
+                             class="me-2">
+                        Asistente de Moda VestIA
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <div class="modal-body" id="iaChatBody" style="height: 400px; overflow-y: auto; background-color: #f8f9fa;">
+                    <!-- Mensajes del chat -->
+                    <div class="chat-message ai-message mb-3">
+                        <div class="message-bubble ai-bubble">
+                            <strong>Asistente IA:</strong> ¡Hola! Soy tu asistente de moda personal. ¿En qué puedo ayudarte hoy? Puedo recomendarte productos, ayudarte a elegir atuendos o resolver tus dudas sobre moda.
+                        </div>
+                    </div>
+                    
+                    <div class="chat-message ai-message mb-3">
+                        <div class="message-bubble ai-bubble">
+                            <strong>Asistente IA:</strong> También puedes subir una foto de tu atuendo y te ayudo a combinarlo o a encontrar prendas similares en nuestra tienda.
+                        </div>
+                    </div>
+                    
+                    <div class="chat-message ai-message mb-3">
+                        <div class="message-bubble ai-bubble">
+                            <strong>Asistente IA:</strong> Por ejemplo, puedes preguntarme:
+                            <ul class="mb-0 mt-2">
+                                <li>"¿Qué producto me recomiendas para una entrevista de trabajo?"</li>
+                                <li>"Muéstrame vestidos elegantes para una fiesta"</li>
+                                <li>"Sube una foto de tu atuendo y te ayudo a mejorarlo"</li>
+                                <li>"¿Qué colores están de moda esta temporada?"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="d-flex flex-column w-100">
+                        <!-- Input oculto para subir archivos -->
+                        <input type="file" 
+                               id="iaChatFileInput" 
+                               accept="image/*" 
+                               style="display: none;"
+                               onchange="handleImageUpload(event)">
+                        
+                        <!-- Contenedor para vista previa de imagen -->
+                        <div id="imagePreviewContainer" class="mb-2" style="display: none;">
+                            <div class="card">
+                                <div class="card-body p-2">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <img id="imagePreview" src="" alt="Vista previa" 
+                                                 style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
+                                            <div>
+                                                <small id="imageFileName" class="d-block"></small>
+                                                <small id="imageFileSize" class="text-muted"></small>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeUploadedImage()">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Área de entrada de mensaje -->
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-secondary" type="button" id="iaChatUploadBtn" onclick="triggerFileUpload()" title="Subir imagen">
+                                    <i class="fas fa-camera"></i>
+                                </button>
+                            </div>
+                            
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="iaChatInput" 
+                                   placeholder="Escribe tu pregunta sobre moda o sube una foto..."
+                                   onkeypress="if(event.key === 'Enter') sendIAChatMessage()">
+                            
+                            <button class="btn btn-primary" type="button" id="iaChatSend" onclick="sendIAChatMessage()">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Información sobre subida de imágenes -->
+                        <small class="text-muted mt-1">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Puedes subir fotos de atuendos para recibir recomendaciones personalizadas
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <footer></footer>
 

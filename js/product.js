@@ -15,7 +15,7 @@ function displayProducts(productsToRender) {
             : "./graphic resources/icon/favorite_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
 
         const productCard = `
-        <div class="card" style="width: 18rem;">
+        <div class="card"">
           <img class="card-img-top" src="${product.thumbnail}" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">${product.title}</h5>
