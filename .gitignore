@@ -20,4 +20,9 @@
 .history
 .ionide
 
+# Ignore config.js file
+
+js/config.js
+
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode

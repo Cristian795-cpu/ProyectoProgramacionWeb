@@ -1,1 +1,0 @@
-console.log("This is the style.js file.");
