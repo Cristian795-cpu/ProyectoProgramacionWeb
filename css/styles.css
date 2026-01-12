@@ -24,7 +24,7 @@ header {
     border-bottom: 3px solid var(--accent-warm);
 }
 
-.login-container {
+.products-container {
     width: 100%;
 }
 
@@ -114,7 +114,7 @@ header {
     flex-direction: column;
     transition: all 0.4s ease;
     border: 1px solid rgba(169, 149, 150, 0.2);
-    position: relative;
+    /* position: relative; */
 }
 
 .card:hover {
@@ -566,4 +566,22 @@ aside {
     flex-direction: column;
     transition: all 0.4s ease;
     border: 1px solid rgba(169, 149, 150, 0.2);
+}
+
+.bg-user {
+    background-color: var(--primary-dark) !important;
+    color: var(--neutral-light) !important;
+}
+
+#imagePreviewContainer .card {
+    height: auto !important;      /* Evita que se estire verticalmente */
+    min-height: 0 !important;     /* Resetea alturas mínimas heredadas */
+    width: 100%;                  /* Ocupa el ancho disponible */
+    flex-direction: row;          /* Asegura que el contenido vaya de lado a lado */
+    background-color: white;    /* Fondo gris claro sutil */
+}
+
+#imagePreviewContainer .card-body {
+    padding: 0.5rem !important;   /* Reduce el relleno interno */
+    width: 100%;                  /* Asegura que el cuerpo ocupe todo el ancho */
 }
