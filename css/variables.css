@@ -1,0 +1,8 @@
+/* Variables globales */
+:root { 
+     --primary-dark: #222A2D;      /* Fondo principal y texto */ 
+     --secondary-dark: #585F73;    /* Elementos secundarios */ 
+     --accent-warm: #66514C;       /* Acentos cálidos */ 
+     --accent-light: #A99596;      /* Acentos claros */ 
+     --neutral-light: #E4E1DC;     /* Fondo claro */ 
+}

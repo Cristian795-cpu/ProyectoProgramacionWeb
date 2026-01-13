@@ -1,0 +1,16 @@
+/* Estilos del cuerpo */
+body { 
+     margin: 0; 
+     background-color: var(--neutral-light) !important; 
+     color: var(--primary-dark); 
+} 
+
+.products-container { 
+    width: 100%; 
+} 
+
+main { 
+    display: flex; 
+    min-height: calc(100vh - 100px); 
+    background-color: var(--neutral-light) !important; 
+}

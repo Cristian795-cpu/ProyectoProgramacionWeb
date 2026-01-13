@@ -1,0 +1,249 @@
+/* Todo lo relacionado a filtros (escritorio y  movil) */
+aside { 
+    height: auto; 
+    min-height:500px; 
+} 
+
+.filters-container { 
+    background: linear-gradient(145deg, var(--secondary-dark), #4a5268) !important; 
+    border-radius: 15px !important; 
+    border: none !important; 
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.1); 
+    margin: 20px; 
+    padding: 25px; 
+    color: var(--neutral-light) !important; 
+    height: auto; 
+    min-height: 500px; 
+    overflow-y:visible !important; 
+    position: sticky; 
+    top: 20px; 
+} 
+
+.filters-container .card-body { 
+    max-height: none; 
+    overflow-y: visible; 
+} 
+
+.filters-container h2, 
+.filters-container h3, 
+.filters-container .h6 { 
+    color: var(--neutral-light) !important; 
+} 
+
+.filters-container a, 
+.filters-container .text-decoration-none { 
+    color: var(--neutral-light) !important; 
+    transition: all 0.3s ease; 
+    padding: 5px 10px; 
+} 
+
+.filters-container a:hover { 
+    color: var(--accent-light) !important; 
+    background-color: rgba(169, 149, 150, 0.1); 
+    text-decoration: none !important; 
+    transform: translateX(5px); 
+} 
+
+/* Segundo bloque filters-container del original */
+.filters-container { 
+    flex: 0 0 300px; 
+    width: 300px; 
+    height: 600px; 
+    padding: 20px; 
+    background-color: #f9f9f9; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+    margin-right: 20px; 
+    overflow:auto; 
+} 
+
+#category-list li { 
+    cursor: pointer; 
+    padding: 8px 12; 
+    border-radius: 5px; 
+    list-style: none; 
+    transition: background-color 0.3s, color 0.3s, font-weight 0.3s, text-decoration 0.3s; 
+    margin-bottom: 5px; 
+} 
+
+#category-list li a { 
+    color: var(--neutral-light) !important; 
+    text-decoration: none; 
+    display: block; 
+    width: 100%; 
+} 
+
+#category-list li:hover { 
+    color: var(--accent-light) !important; 
+    font-weight: bold; 
+} 
+
+#category-list .nav-link { 
+    text-transform: capitalize;  
+} 
+
+#category-list-mobile li { 
+    cursor: pointer; 
+    padding: 8px 12px; 
+    border-radius: 5px; 
+    list-style: none; 
+    transition: background-color 0.3s, color 0.3s, font-weight 0.3s, text-decoration 0.3s; 
+    margin-bottom: 5px; 
+} 
+
+#category-list-mobile li a { 
+    color: #333; 
+    text-decoration: none; 
+    display: block; 
+    width: 100%; 
+} 
+
+#category-list-mobile li:hover { 
+    background-color: #f0f0f0; 
+    color: var(--accent-warm); 
+    font-weight: bold; 
+} 
+
+#category-list-mobile .nav-link { 
+    text-transform: capitalize;  
+} 
+
+/* Estilos del Offcanvas */
+.offcanvas-start { 
+    background: var(--secondary-dark) !important; 
+    border: none !important; 
+    color: var(--neutral-light) !important; 
+} 
+
+.offcanvas-header { 
+    background: var(--secondary-dark) !important; 
+    border-bottom: 1px solid rgba(169, 149, 150, 0.3) !important; 
+    color: var(--neutral-light) !important; 
+} 
+
+.offcanvas-title { 
+    color: var(--neutral-light) !important; 
+    font-weight: 600 !important; 
+} 
+
+.offcanvas-body { 
+    background: var(--secondary-dark) !important; 
+    color: var(--neutral-light) !important; 
+    overflow-y: auto; 
+    max-height: calc(100vh - 150px); 
+} 
+
+.offcanvas-header .btn-close { 
+    filter: invert(1) brightness(2) !important; 
+    opacity: 0.8 !important; 
+} 
+
+.offcanvas-header .btn-close:hover { 
+    opacity: 1 !important; 
+} 
+
+#filtersOffcanvas .search-box .form-control { 
+    background-color: rgba(255, 255, 255, 0.1) !important; 
+    border-color: rgba(169, 149, 150, 0.3) !important; 
+    color: var(--neutral-light) !important; 
+} 
+
+#filtersOffcanvas .search-box .form-control::placeholder { 
+    color: rgba(228, 225, 220, 0.7) !important; 
+} 
+
+#filtersOffcanvas .search-box .btn-outline-secondary { 
+    background-color: rgba(169, 149, 150, 0.2) !important; 
+    border-color: rgba(169, 149, 150, 0.3) !important; 
+    color: var(--neutral-light) !important; 
+} 
+
+#filtersOffcanvas .search-box .btn-outline-secondary:hover { 
+    background-color: rgba(169, 149, 150, 0.3) !important; 
+} 
+
+#filtersOffcanvas a, 
+#filtersOffcanvas .text-decoration-none { 
+    color: var(--neutral-light) !important; 
+    transition: all 0.3s ease; 
+    padding: 5px 10px; 
+    display: block; 
+} 
+
+#filtersOffcanvas a:hover { 
+    color: var(--accent-light)!important; 
+    background-color: rgba(169, 149, 150, 0.1) !important; 
+    text-decoration: none !important; 
+    transform: translateX(5px); 
+} 
+
+#filtersOffcanvas .btn-sm.btn-outline-secondary{ 
+    background-color: rgba(255, 255, 255, 0.1) !important; 
+    border-color: rgba(169, 149, 150, 0.3) !important; 
+    color: var(--neutral-light) !important; 
+} 
+
+#filtersOffcanvas .btn-sm.btn-outline-secondary:hover { 
+    background-color: rgba(169, 149, 150, 0.2) !important; 
+    border-color: var(--accent-light) !important; 
+    color: var(--accent-light) !important; 
+} 
+
+#filtersOffcanvas .form-control-sm { 
+    background-color: rgba(255, 255, 255, 0.1) !important; 
+    border-color: rgba(169, 149, 150, 0.3) !important; 
+    color: var(--neutral-light) !important; 
+} 
+
+#filtersOffcanvas .form-control-sm::placeholder { 
+    color: rgba(228, 225, 220, 0.7) !important; 
+} 
+#filtersOffcanvas .form-control-sm:focus { 
+    background-color: rgba(255, 255, 255, 0.15) !important; 
+    border-color: var(--accent-light) !important; 
+    color: var(--neutral-light) !important; 
+    box-shadow: 0 0 0 0.25rem rgba(169, 149, 150, 0.25) !important; 
+} 
+
+#filtersOffcanvas h3.h6, 
+#filtersOffcanvas h6.fw-bold { 
+    color: var(--neutral-light) !important; 
+    border-bottom: 1px solid rgba(169, 149, 150, 0.2); 
+    padding-bottom: 8px; 
+    margin-bottom: 15px; 
+} 
+
+#filtersOffcanvas .list-unstyled li { 
+    margin-bottom: 8px; 
+} 
+
+#filtersOffcanvas .list-unstyled li:last-child { 
+    margin-bottom: 0; 
+} 
+#filtersOffcanvas .material-icons { 
+    color: var(--accent-light) !important; 
+} 
+
+.offcanvas-body::-webkit-scrollbar { 
+    width: 6px; 
+} 
+
+.offcanvas-body::-webkit-scrollbar-track { 
+    background: rgba(0, 0, 0, 0.1); 
+} 
+
+.offcanvas-body::-webkit-scrollbar-thumb { 
+    background: var(--accent-light); 
+    border-radius: 3px; 
+} 
+
+.offcanvas-body::-webkit-scrollbar-thumb:hover { 
+    background: rgba(169, 149, 150, 0.8); 
+} 
+
+@media (max-width: 992px){ 
+    .filters-container { 
+        max-height: 500px; 
+        margin: 10px; 
+    } 
+}

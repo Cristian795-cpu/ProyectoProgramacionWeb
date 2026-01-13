@@ -1,0 +1,58 @@
+/* Componentes varios */
+.material-symbols-outlined { 
+    font-variation-settings: 
+    'FILL' 0, 
+    'wght' 400, 
+    'GRAD' 0, 
+    'opsz' 24 
+} 
+
+/* Segundo bloque material-symbols del original */
+.material-symbols-outlined { 
+    color: #ffffff; 
+    width: 24px; 
+    font-variation-settings: 
+    'FILL' 0, 
+    'wght' 400, 
+    'GRAD' 0, 
+    'opsz' 24 
+} 
+
+.btn-outline-primary{ 
+    margin-top:20px ; 
+    margin-right: 10px; 
+    background-color: transparent !important; 
+    color: var(--accent-warm) !important; 
+    font-weight: 600 !important; 
+    padding: 10px 20px !important; 
+    border-radius: 8px !important; 
+    transition: all 0.3s ease !important; 
+    border-color: var(--accent-warm) !important; 
+} 
+
+.btn-outline-primary:hover { 
+    background-color: var(--accent-warm) !important; 
+    border-color: var(--accent-warm) !important; 
+    color: var(--neutral-light) !important; 
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 8px rgba(169, 149, 150, 0.3); 
+} 
+
+.bg-user { 
+    background-color: var(--primary-dark) !important; 
+    color: var(--neutral-light) !important; 
+} 
+
+/* Previsualizacion de la imagen a subir en el chatbot */
+#imagePreviewContainer .card { 
+    height: auto !important;      /* Evita que se estire verticalmente */ 
+    min-height: 0 !important;     /* Resetea alturas mínimas heredadas */ 
+    width: 100%;                  /* Ocupa el ancho disponible */ 
+    flex-direction: row;          /* Asegura que el contenido vaya de lado a lado */ 
+    background-color: white;    /* Fondo gris claro sutil */ 
+} 
+
+#imagePreviewContainer .card-body { 
+    padding: 0.5rem !important;   /* Reduce el relleno interno */ 
+    width: 100%;                  /* Asegura que el cuerpo ocupe todo el ancho */ 
+}
