@@ -1,4 +1,3 @@
-//! Hay que probar esto
 let currentPage = 1;
 const productsPerPage = 9;
 let currentCategory = '';
@@ -102,16 +101,5 @@ function filterByPrice() {
     }
     
     currentPage = 1;
-    renderGrid();
-    
+    renderGrid();    
 }
-       
-// function filterProductsMobile() {
-//     const searchInputMobile = document.getElementById('searchInputMobile');
-//     if(searchInputMobile) {
-//         // Sincronizar con escritorio
-//         const desktop = document.getElementById('searchInput');
-//         if(desktop) desktop.value = searchInputMobile.value;
-//     }
-//     applyFilters();
-// }

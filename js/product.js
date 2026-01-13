@@ -1,19 +1,20 @@
 let favoritos=JSON.parse(localStorage.getItem("favoritos")) || [];
-// let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
+// Funcion para mostrar productos en el grid
 function displayProducts(productsToRender) {
     const productsContainer = document.getElementById('gridCard');
     productsContainer.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevos productos
 
     const favoritosGuardados =JSON.parse(localStorage.getItem("favoritos")) || [];
 
-
+    // Recorrer el array de productos y crear las cards
     productsToRender.forEach(product => {
         const isFavorito= favoritosGuardados.includes(product.id);
         const iconoFavorito= isFavorito
             ? "./graphic resources/icon/favorite_filled_red.svg"
             : "./graphic resources/icon/favorite_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
 
+        // Crear la card del producto
         const productCard = `
         <div class="card">
           <img class="card-img-top" src="${product.thumbnail}" alt="Card image cap">
@@ -40,25 +41,12 @@ function displayProducts(productsToRender) {
     });
 }
 
-// function displayCategories(categoriesData) {
-//     // Apuntamos al UL directamente
-//     const categoriesContainer = document.getElementById('category-list');
-//     categoriesContainer.innerHTML = ''; 
-
-//     categoriesData.forEach(category => {
-//         categoriesContainer.innerHTML += `
-//         <li class="nav-item">
-//           <a class="nav-link" href="#" onclick="filterByCategory('${category}')">${category}</a>
-//         </li>`;
-//     });
-
-
-// }
-
 function displayCategories(categoriesData) {
-    // Apuntamos al UL directamente
+
+    // Mostrar en ambas vistas, escritorio y movil
     const categoriesContainer = document.getElementById('category-list');
     const categoriesContainerMobile = document.getElementById('category-list-mobile');
+    // limpiar segun contenedor
     if(categoriesContainerMobile){
         categoriesContainer.innerHTML = ''; 
     }
@@ -67,6 +55,7 @@ function displayCategories(categoriesData) {
         categoriesContainerMobile.innerHTML = ''; 
     }
 
+    // Recorrer y agregar cada categoria en escritorio y movil
     categoriesData.forEach(category => {
         if(categoriesContainerMobile){
             categoriesContainerMobile.innerHTML += `
@@ -85,7 +74,9 @@ function displayCategories(categoriesData) {
     });
 }
 
-window.verDetallesProducto= function(productId){
+// Funcion para ver detalles del producto en un modal
+window.verDetallesProducto= function(productId) {
+    // Asegurarse que los productos esten cargados
     if (!window.allProducts || window.allProducts.length === 0) {
         Swal.fire({
             icon: 'warning',
@@ -97,6 +88,7 @@ window.verDetallesProducto= function(productId){
         return;
     }
 
+    // Buscar el producto por ID
     const product= window.allProducts.find(p => p.id === productId);
     if(!product) {
         Swal.fire({
@@ -108,6 +100,7 @@ window.verDetallesProducto= function(productId){
     }
     
     const modalContent = document.getElementById('productoModalContenido');
+    // Rellenar el contenido del modal
     modalContent.innerHTML = `
         <div class="row">
             <div class="col-md-6">
@@ -126,6 +119,7 @@ window.verDetallesProducto= function(productId){
         </div>
     `;
     
+    // boton de agregar al carrito
     const agregarBtn = document.getElementById('agregarDesdeModal');
     agregarBtn.onclick = function() {
         agregarAlCarrito(productId);
@@ -133,15 +127,19 @@ window.verDetallesProducto= function(productId){
         modal.hide();
     };
     
+    // Mostrar el modal
     const modal = new bootstrap.Modal(document.getElementById('productoModal'));
     modal.show();
 }
 
+// Funcion para guardar o quitar favorito en LocalStorage
 window.guardarFavoritoLocalStorage= function(productId) {
+
     let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
     const productIndex = favoritos.indexOf(productId);
     const iconoElement = document.getElementById(`favorito-${productId}`);
     
+    // Agregar a favoritos si no esta
     if (productIndex === -1) {
         favoritos.push(productId);
         localStorage.setItem("favoritos", JSON.stringify(favoritos));

@@ -1,3 +1,5 @@
+// establecer el modelo de gemini
+// tiene 20 peticiones al dia
 const MODEL_NAME = "gemini-2.5-flash"; 
 
 // Estado
@@ -18,7 +20,7 @@ function handleImageUpload(event) {
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-        Swal.fire('Error', 'Por favor sube solo imágenes', 'error');
+        Swal.fire('Error', 'Por favor sube solo imagenes', 'error');
         return;
     }
 
@@ -38,7 +40,7 @@ function handleImageUpload(event) {
     };
     reader.readAsDataURL(file);
 }
-
+// remover la imagen a enviar
 function removeUploadedImage() {
     selectedImageBase64 = null;
     selectedImageMimeType = null;
@@ -48,13 +50,13 @@ function removeUploadedImage() {
     if (previewContainer) previewContainer.style.display = 'none';
 }
 
-// --- 2. GESTIÓN DEL HISTORIAL ---
+// Gestionar el historial de mensajes
 function saveToHistory(role, text) {
     chatHistory.push({ role: role, parts: [{ text: text }] });
     localStorage.setItem('vestia_chat_history', JSON.stringify(chatHistory));
 }
 
-// Función simple para formatear negritas y saltos de línea (SIN TARJETAS)
+// para formatear negritas y saltos de linea
 function formatResponse(text) {
     return text
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -69,8 +71,9 @@ function renderChatHistory() {
         return;
     }
 
-    chatBody.innerHTML = ''; // Limpiar para repintar
+    chatBody.innerHTML = ''; // Limpiar contenedor
 
+    // recorrer el historial de mensages
     chatHistory.forEach(msg => {
         const isUser = msg.role === 'user';
         const formattedText = isUser ? msg.parts[0].text : formatResponse(msg.parts[0].text);
@@ -86,7 +89,7 @@ function renderChatHistory() {
     chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-// --- LÓGICA DEL CHAT ---
+// Logica de envio de mensaje
 async function sendIAChatMessage() {
     const input = document.getElementById('iaChatInput');
     const message = input.value.trim();
@@ -94,7 +97,7 @@ async function sendIAChatMessage() {
 
     if (!message && !selectedImageBase64) return;
 
-    // A. Guardar y mostrar mensaje del usuario
+    // Guardar y mostrar mensaje del usuario
     if (message) saveToHistory('user', message);
 
     const userHtml = `
@@ -112,7 +115,7 @@ async function sendIAChatMessage() {
     removeUploadedImage();
     chatBody.scrollTop = chatBody.scrollHeight;
 
-    // B. Loading
+    // cfargando
     const loadingId = 'loading-' + Date.now();
     chatBody.innerHTML += `
         <div class="chat-message ai-message mb-3" id="${loadingId}">
@@ -122,12 +125,12 @@ async function sendIAChatMessage() {
         </div>`;
 
     try {
-        // Contexto del inventario (con precio visible en texto)
+        // Contexto del inventario solo con precio visible en texto
         const products = window.allProducts || [];
         const inventoryContext = products.length > 0 
             ? products.map(p => `- ${p.title} (${p.category}): $${p.price}`).join('\n')
             : "Inventario no disponible.";
-
+        // Instrucciones para que no se salga de contexto
         const systemInstructionText = `
         Eres VestIA, asistente de moda.
         INVENTARIO DE LA TIENDA:
@@ -139,13 +142,14 @@ async function sendIAChatMessage() {
         3. Se amable y breve.
         `;
 
-        // C. Preparar Historial para API
+        // Preparar Historial para API
         // Excluimos el actual porque lo enviamos en 'contents'
         const historyForApi = chatHistory.slice(0, -1).map(msg => ({
             role: msg.role,
             parts: [{ text: msg.parts[0].text }]
         }));
 
+        // Preparar contenido
         const contentsParts = [];
         if (message) contentsParts.push({ text: message });
         if (tempImage) {
@@ -153,6 +157,7 @@ async function sendIAChatMessage() {
             if (!message) contentsParts.push({ text: "Analiza esta imagen." });
         }
 
+        // Si no hay api key, error
         if (!window.CONFIG || !window.CONFIG.GEMINI_API_KEY) throw new Error("Falta API KEY");
         const API_KEY = window.CONFIG.GEMINI_API_KEY.trim();
 
@@ -162,8 +167,8 @@ async function sendIAChatMessage() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 system_instruction: { parts: { text: systemInstructionText } },
-                contents: [...historyForApi, { role: "user", parts: contentsParts }],
-                safetySettings: [
+                contents: [...historyForApi, { role: "user", parts: contentsParts }], // destructuracion de historial + mensaje actual
+                safetySettings: [ // configuracion de seguridad por si no responde a algunas preguntas
                     { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
                     { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
                     { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
@@ -172,6 +177,7 @@ async function sendIAChatMessage() {
             })
         });
 
+        // Manejo de errores
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
             throw new Error(`Error ${response.status}: ${errorData.error?.message || 'Error desconocido'}`);
@@ -180,13 +186,14 @@ async function sendIAChatMessage() {
         const data = await response.json();
         document.getElementById(loadingId).remove();
 
+        // Mostrar respuesta del modelo
         if (data.candidates && data.candidates[0].content) {
             const aiText = data.candidates[0].content.parts[0].text;
             
             // Guardar respuesta en historial
             saveToHistory('model', aiText);
 
-            // Formatear solo texto (negritas/br)
+            // Formatear solo texto negritas y br
             const formattedText = formatResponse(aiText);
 
             chatBody.innerHTML += `
@@ -198,8 +205,13 @@ async function sendIAChatMessage() {
         }
 
     } catch (error) {
+        // Quitar el loading
         document.getElementById(loadingId)?.remove();
-        if(message) { chatHistory.pop(); localStorage.setItem('vestia_chat_history', JSON.stringify(chatHistory)); }
+
+        if(message) { 
+            chatHistory.pop(); 
+            localStorage.setItem('vestia_chat_history', JSON.stringify(chatHistory)); 
+        }
         
         console.error(error);
         chatBody.innerHTML += `
@@ -212,5 +224,5 @@ async function sendIAChatMessage() {
     chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-// 3. INICIAR CARGA DE HISTORIAL
+// Cargar el historial al iniciar
 document.addEventListener('DOMContentLoaded', renderChatHistory);

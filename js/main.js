@@ -1,29 +1,30 @@
+// Variables globales para productos
 window.allProducts = [];
 window.filteredProducts = [];
-// let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 1. Cargar el Carrito y Contadores
+    // Cargar el Carrito y Contadores
     actualizarContadorCarrito();
     actualizarCarritoModal();
 
-    // 2. Cargar TODOS los productos
+    // Cargar todos los productos con la API
     fetch('https://dummyjson.com/products?limit=0')
     .then(res => res.json())
     .then(data => {
         window.allProducts = data.products;
         
-        // Al inicio, los filtrados son TODOS
-        window.filteredProducts = window.allProducts; 
         console.log('Productos cargados:', window.allProducts.length);
+        // Al inicio, los filtrados son todos los productos
+        // ya que es la lista que se manipula con los filtros
+        window.filteredProducts = applyProfileFilters(window.allProducts); // se aplican las preferencias si existen        
 
-        // Llamamos a renderGrid (función de filters.js)
+        // Llamamos a renderGrid para mostrar los productos
         renderGrid();
     })
     .catch(error => console.error('Error al cargar los productos:', error));
 
-    // 3. Cargar Categorías
+    // Cargar Categorias con la API
     fetch('https://dummyjson.com/products/category-list')
     .then(res => res.json())
     .then(data => {
@@ -32,18 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => console.error('Error al cargar las categorías:', error));
 
-    // 4. Activar el Buscador (Descomentado y corregido)
-    const searchInput = document.getElementById('searchInput'); // Asegúrate que el ID en HTML sea 'searchInput'
+    // Activar el Buscador en la barra
+    const searchInput = document.getElementById('searchInput'); 
     if(searchInput) {
         searchInput.addEventListener('keyup', (e) => {
-            if(e.key === 'Enter') applyFilters(); // Función de filters.js
+            if(e.key === 'Enter') applyFilters(); // Aplicar la funcion de filtros al presionar enter
         });
-        // Opcional: Búsqueda en tiempo real mientras escribes
-        // searchInput.addEventListener('input', () => applyFilters()); 
     }
 });
 
-// window.allProducts = window.allProducts;
-// window.filteredProducts = window.filteredProducts;
-// window.currentPage = currentPage;
-// window.productsPerpage = productsPerPage;
