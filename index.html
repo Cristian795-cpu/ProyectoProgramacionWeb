@@ -96,13 +96,13 @@
                                     class="form-control" 
                                     id="searchInput"
                                     placeholder="Buscar productos..."
-                                    onkeypress="if(event.key === 'Enter') applyFilters()"
+                                    onkeypress="if(event.key === 'Enter') applyAllFilters()"
                                     >                            
                                 
 
                                 <button class="btn btn-outline-secondary" 
                                         type="button"
-                                        onclick="applyFilters()">
+                                        onclick="applyAllFilters()">
                                 <span class="material-icons">search</span>
                                 </button>
 
@@ -220,10 +220,10 @@
                         class="form-control" 
                         id="searchInputMobile"
                         placeholder="Buscar productos..."
-                        onkeypress="if(event.key === 'Enter') filterProductsMobile()">
+                        onkeypress="if(event.key === 'Enter') applyAllFilters()">
                     <button class="btn btn-outline-secondary" 
                             type="button"
-                            onclick="filterProductsMobile()">
+                            onclick="applyAllFilters()">
                         <span class="material-icons">search</span>
                     </button>
                 </div>
