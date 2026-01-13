@@ -21,5 +21,5 @@
 ### 5) Google Material Icons - Iconos de Material Design.
 
 ## APIs externas:
-## 1) DummyJSON API - Catálogo de productos de prueba.
-## 2) Google Gemini API - Motor de IA para el asistente de moda.
+### 1) DummyJSON API - Catálogo de productos de prueba.
+### 2) Google Gemini API - Motor de IA para el asistente de moda.
