@@ -11,7 +11,7 @@
 ### 6) Diseño responsivo: Adaptado para móviles, tablets y desktop.
 
 ## Visualización en línea:
-### Accede a la aplicación a través del siguiente enlace: [Enlace de despliegue] (no se requiere instalación).
+### Accede a la aplicación a través del siguiente enlace: [https://cristian795-cpu.github.io/ProyectoProgramacionWeb/] (no se requiere instalación).
 
 ## Tecnologías y librerías utilizadas:
 ### 1) HTML5 - Estructura de la aplicación.
