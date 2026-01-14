@@ -13,8 +13,8 @@ function agregarAlCarrito(productId) {
         return;
     }
     
-    // Si no está en allProducts, intentar cargarlo desde la API
-    if (!product) {
+    // Si no esta en allProducts, intentar cargarlo desde la API
+    if (!product){
         
         fetch(`https://dummyjson.com/products/${productId}`)
             .then(res => res.json())
@@ -69,6 +69,7 @@ function agregarProductoAlCarrito(product) {
     modal.show();
 }
 
+// Actualizar el contador del carrito en la barra de navegacion
 function actualizarContadorCarrito() {
     const carritoBadge = document.getElementById('carritoBadge');
     const totalItems = carrito.reduce((total, item) => total + item.cantidad, 0);
@@ -81,6 +82,7 @@ function actualizarContadorCarrito() {
     }
 }
 
+// Actualizar el contenido del modal del carrito
 function actualizarCarritoModal() {
     const carritoContenido = document.getElementById('carritoContenido');
     const carritoTotal = document.getElementById('carritoTotal');
@@ -98,6 +100,7 @@ function actualizarCarritoModal() {
         const subtotal = item.price * item.cantidad;
         total += subtotal;
         
+        // Generar el HTML para cada item del carrito
         contenidoHTML += `
         <div class="border-bottom pb-2 mb-2">
             <div class="card-body p-2">
@@ -171,6 +174,7 @@ function cambiarCantidad(productId, cambio){
     }
 }
 
+// Eliminar un producto del carrito por su id
 function eliminarDelCarrito(productId){
     carrito=carrito.filter(item => item.id !== productId);
 
