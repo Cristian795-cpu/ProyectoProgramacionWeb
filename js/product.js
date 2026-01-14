@@ -11,8 +11,8 @@ function displayProducts(productsToRender) {
     productsToRender.forEach(product => {
         const isFavorito= favoritosGuardados.includes(product.id);
         const iconoFavorito= isFavorito
-            ? "./graphic resources/icon/favorite_filled_red.svg"
-            : "./graphic resources/icon/favorite_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
+            ? "./graphic-resources/icon/favorite_filled_red.svg"
+            : "./graphic-resources/icon/favorite_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
 
         // Crear la card del producto
         const productCard = `
@@ -146,7 +146,7 @@ window.guardarFavoritoLocalStorage= function(productId) {
         
         // Cambiar icono a rojo
         if (iconoElement) {
-            iconoElement.src = "./graphic resources/icon/favorite_filled_red.svg";
+            iconoElement.src = "./graphic-resources/icon/favorite_filled_red.svg";
             iconoElement.style.transform = "scale(1.5)";
             setTimeout(() => {
                 iconoElement.style.transform = "scale(1)";
@@ -166,7 +166,7 @@ window.guardarFavoritoLocalStorage= function(productId) {
         
         // Cambiar icono a gris
         if (iconoElement) {
-            iconoElement.src = "./graphic resources/icon/favorite_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
+            iconoElement.src = "./graphic-resources/icon/favorite_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
             iconoElement.style.transform = "scale(1.5)";
             setTimeout(() => {
                 iconoElement.style.transform = "scale(1)";
